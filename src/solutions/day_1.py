@@ -16,4 +16,5 @@ def sum_top_chunkiest_elves(top_n: int) -> int:
 
 
 if __name__ == "__main__":
+    print(sum_top_chunkiest_elves(1))
     print(sum_top_chunkiest_elves(3))
