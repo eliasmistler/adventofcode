@@ -1,4 +1,4 @@
-from solutions import day_1, day_2, day_3
+from solutions import day_1, day_2, day_3, day_4
 
 
 def test_day1():
@@ -22,3 +22,11 @@ def test_day3():
 
 def test_day3_part2():
     assert day_3.part2_find_badges_in_elf_groups() == 70
+
+
+def test_day4():
+    assert day_4.count_fully_contained() == 2
+
+
+def test_day4_part2():
+    assert day_4.count_overlapping() == 4
