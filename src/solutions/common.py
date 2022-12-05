@@ -8,4 +8,4 @@ def get_file_path(day: int) -> Path:
 
 def get_file_content(day: int) -> str:
     with open(get_file_path(day)) as f:
-        return f.read().strip()
+        return f.read().strip('\n')

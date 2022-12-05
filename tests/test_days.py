@@ -1,4 +1,4 @@
-from solutions import day_1, day_2, day_3, day_4
+from solutions import day_1, day_2, day_3, day_4, day_5
 
 
 def test_day1():
@@ -30,3 +30,29 @@ def test_day4():
 
 def test_day4_part2():
     assert day_4.count_overlapping() == 4
+
+
+def test_day5():
+    stacks_before, instructions = day_5.parse_stacks_and_instructions()
+    assert stacks_before == {
+        1: ['Z', 'N'],
+        2: ['M', 'C', 'D'],
+        3: ['P'],
+    }
+
+    stacks_after_1 = day_5.apply_instruction(instructions[0], stacks_before, False)
+    assert stacks_after_1 == {
+        1: ['Z', 'N', 'D'],
+        2: ['M', 'C'],
+        3: ['P'],
+    }
+
+    stacks_final = day_5.apply_instructions(instructions, stacks_before, False)
+    assert stacks_final == {
+        1: ['C'],
+        2: ['M'],
+        3: ['P', 'D', 'N', 'Z'],
+    }
+
+    assert day_5.apply_and_check_top_crates(False) == 'CMZ'
+    assert day_5.apply_and_check_top_crates(True) == 'MCD'
