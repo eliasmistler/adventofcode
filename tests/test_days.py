@@ -1,4 +1,4 @@
-from solutions import day_1, day_2, day_3, day_4, day_5
+from solutions import day_1, day_2, day_3, day_4, day_5, day_6
 
 
 def test_day1():
@@ -56,3 +56,17 @@ def test_day5():
 
     assert day_5.apply_and_check_top_crates(False) == 'CMZ'
     assert day_5.apply_and_check_top_crates(True) == 'MCD'
+
+
+def test_day_6():
+    assert day_6.detect_marker('mjqjpqmgbljsphdztnvjfqwrcgsmlb', 4) == 7
+    assert day_6.detect_marker('bvwbjplbgvbhsrlpgdmjqwftvncz', 4) == 5
+    assert day_6.detect_marker('nppdvjthqldpwncqszvftbrmjlhg', 4) == 6
+    assert day_6.detect_marker('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 4) == 10
+    assert day_6.detect_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 4) == 11
+
+    assert day_6.detect_marker('mjqjpqmgbljsphdztnvjfqwrcgsmlb', 14) == 19
+    assert day_6.detect_marker('bvwbjplbgvbhsrlpgdmjqwftvncz', 14) == 23
+    assert day_6.detect_marker('nppdvjthqldpwncqszvftbrmjlhg', 14) == 23
+    assert day_6.detect_marker('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 14) == 29
+    assert day_6.detect_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 14) == 26
