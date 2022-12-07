@@ -1,4 +1,4 @@
-from solutions import day_1, day_2, day_3, day_4, day_5, day_6
+from solutions import day_1, day_2, day_3, day_4, day_5, day_6, day_7
 
 
 def test_day1():
@@ -64,3 +64,38 @@ def test_day_6():
     assert day_6.detect_marker('nppdvjthqldpwncqszvftbrmjlhg', 14) == 23
     assert day_6.detect_marker('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 14) == 29
     assert day_6.detect_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 14) == 26
+
+
+def test_day_7():
+    root = day_7.parse_directory_structure()
+    exp = day_7.Directory('/', {
+        'a': day_7.Directory('a', {
+            'e': day_7.Directory('e', {'i': day_7.File('i', 584)}),
+            'f': day_7.File('f', 29116),
+            'g': day_7.File('g', 2557),
+            'h.lst': day_7.File('h.lst', 62596),
+        }),
+        'b.txt': day_7.File('b.txt', 14848514),
+        'c.dat': day_7.File('c.dat', 8504156),
+        'd': day_7.Directory('d', {
+            'j': day_7.File('j', 4060174),
+            'd.log': day_7.File('d.log', 8033020),
+            'd.ext': day_7.File('d.ext', 5626152),
+            'k': day_7.File('k', 7214296),
+        })
+    })
+
+    assert root == exp
+
+    assert root['a']['e'].size == 584
+    assert root['a'].size == 94853
+    assert root['d'].size == 24933642
+    assert root.size == 48381165
+
+    assert day_7.sum_of_small_folders(root) == 95437
+
+    assert day_7.space_to_clean_up(root) == 8381165
+
+    cleanup_dir = day_7.get_smallest_dir_for_cleanup(root)
+    assert cleanup_dir.name == 'd'
+    assert cleanup_dir.size == 24933642
