@@ -1,4 +1,4 @@
-from solutions import day_1, day_2, day_3, day_4, day_5, day_6, day_7
+from solutions import day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8
 
 
 def test_day1():
@@ -99,3 +99,28 @@ def test_day_7():
     cleanup_dir = day_7.get_smallest_dir_for_cleanup(root)
     assert cleanup_dir.name == 'd'
     assert cleanup_dir.size == 24933642
+
+
+def test_day_8():
+    trees = day_8.get_trees()
+    mask = day_8.score_trees(trees, day_8.ScoreMode.is_visible)
+    exp_mask = [
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 0, 1],
+        [1, 1, 0, 1, 1],
+        [1, 0, 1, 0, 1],
+        [1, 1, 1, 1, 1],
+    ]
+    assert (mask == exp_mask).all()
+
+    scores = day_8.score_trees(trees, day_8.ScoreMode.scenic_score)
+    exp_scores = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 4, 1, 0],
+        [0, 6, 1, 2, 0],
+        [0, 1, 8, 3, 0],
+        [0, 0, 0, 0, 0],
+    ]
+    assert (scores == exp_scores).all()
+
+    assert day_8.get_max_possible_score(trees) == 16
