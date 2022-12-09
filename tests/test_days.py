@@ -1,4 +1,6 @@
-from solutions import day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8
+from pathlib import Path
+
+from solutions import common, day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
 
 
 def test_day1():
@@ -52,7 +54,7 @@ def test_day5():
     assert day_5.apply_and_check_top_crates(True) == 'MCD'
 
 
-def test_day_6():
+def test_day6():
     assert day_6.detect_marker('mjqjpqmgbljsphdztnvjfqwrcgsmlb', 4) == 7
     assert day_6.detect_marker('bvwbjplbgvbhsrlpgdmjqwftvncz', 4) == 5
     assert day_6.detect_marker('nppdvjthqldpwncqszvftbrmjlhg', 4) == 6
@@ -66,7 +68,7 @@ def test_day_6():
     assert day_6.detect_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 14) == 26
 
 
-def test_day_7():
+def test_day7():
     root = day_7.parse_directory_structure()
     exp = day_7.Directory('/', {
         'a': day_7.Directory('a', {
@@ -101,7 +103,7 @@ def test_day_7():
     assert cleanup_dir.size == 24933642
 
 
-def test_day_8():
+def test_day8():
     trees = day_8.get_trees()
     mask = day_8.score_trees(trees, day_8.ScoreMode.is_visible)
     exp_mask = [
@@ -124,3 +126,17 @@ def test_day_8():
     assert (scores == exp_scores).all()
 
     assert day_8.get_max_possible_score(trees) == 16
+
+
+def test_day9():
+    assert day_9.count_visited_positions(2) == 13
+    assert day_9.count_visited_positions(10) == 1
+
+
+def test_day9_alt(monkeypatch):
+    def get_alt_test_file_path(day: int) -> Path:
+        return Path(__file__).parent.parent / 'inputs' / f'day{day:d}_test_alt.txt'
+
+    monkeypatch.setattr(common, 'get_file_path', get_alt_test_file_path)
+
+    assert day_9.count_visited_positions(10) == 36

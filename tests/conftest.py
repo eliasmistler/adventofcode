@@ -6,8 +6,7 @@ import solutions.common
 
 
 def get_test_file_path(day: int) -> Path:
-    folder = Path(__file__).parent.parent / 'inputs'
-    return folder / f'day{day}_test.txt'
+    return Path(__file__).parent.parent / 'inputs' / f'day{day:d}_test.txt'
 
 
 @fixture(autouse=True)
