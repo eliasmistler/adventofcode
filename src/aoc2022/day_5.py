@@ -3,7 +3,7 @@ from typing import NamedTuple
 import toolz
 from parse import parse
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 class Instruction(NamedTuple):
@@ -22,7 +22,7 @@ Stacks = dict[int, list]
 
 
 def parse_stacks_and_instructions() -> tuple[Stacks, list[Instruction]]:
-    raw = get_file_content(day=5)
+    raw = get_file_content(2022, 5)
     stacks, instructions = raw.split('\n\n')
     instructions = list(map(Instruction.parse, instructions.split('\n')))
     stack_contents, stack_names_str = stacks.rsplit('\n', 1)

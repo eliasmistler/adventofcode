@@ -2,7 +2,7 @@ from string import ascii_letters
 
 import toolz
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 priority_map = dict(zip(ascii_letters, range(1, 53)))
 
@@ -13,7 +13,7 @@ def split_compartments(rucksack: str) -> tuple[str, str]:
 
 
 def load_rucksacks():
-    raw = get_file_content(day=3)
+    raw = get_file_content(2022, 3)
     return raw.split('\n')
 
 

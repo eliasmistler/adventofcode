@@ -1,6 +1,6 @@
 import toolz
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 def sum_calories(elf_raw: str) -> int:
@@ -8,7 +8,7 @@ def sum_calories(elf_raw: str) -> int:
 
 
 def sum_top_chunkiest_elves(top_n: int) -> list[int]:
-    raw = get_file_content(day=1)
+    raw = get_file_content(2022, 1)
     return toolz.thread_last(
         raw.split('\n\n'),
         (map, sum_calories),

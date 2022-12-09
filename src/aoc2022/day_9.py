@@ -3,7 +3,7 @@ from typing import Iterable
 
 from parse import parse
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 class Move(Enum):
@@ -22,7 +22,7 @@ class Marker(int, Enum):
 
 
 def parse_moves() -> list[Move]:
-    raw = get_file_content(day=9)
+    raw = get_file_content(2022, 9)
     parsed = (
         parse('{move} {steps:d}', row)
         for row in raw.split('\n')

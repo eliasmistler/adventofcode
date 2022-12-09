@@ -4,11 +4,11 @@ from functools import reduce
 import numpy as np
 from numpy import multiply
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 def get_trees() -> np.array:
-    raw = get_file_content(day=8)
+    raw = get_file_content(2022, 8)
     return np.array([
         np.fromiter(list(row), int)
         for row in raw.split('\n')

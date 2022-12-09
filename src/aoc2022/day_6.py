@@ -1,6 +1,6 @@
 import toolz
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 def detect_marker(message: str, marker_length: int) -> int:
@@ -10,6 +10,6 @@ def detect_marker(message: str, marker_length: int) -> int:
 
 
 if __name__ == "__main__":
-    raw = get_file_content(day=6)
+    raw = get_file_content(2022, 6)
     print(detect_marker(raw, 4))
     print(detect_marker(raw, 14))

@@ -3,11 +3,11 @@ from itertools import starmap
 import toolz
 from parse import parse
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 def get_elf_ranges() -> list[tuple[set[int], set[int]]]:
-    raw = get_file_content(day=4)
+    raw = get_file_content(2022, 4)
 
     def parse_line(line: str) -> tuple[set[int], set[int]]:
         parsed = parse('{elf1from:d}-{elf1to:d},{elf2from:d}-{elf2to:d}', line)

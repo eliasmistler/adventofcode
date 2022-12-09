@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from solutions import common, day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc2022 import day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc_common import util
 
 
 def test_day1():
@@ -134,9 +135,9 @@ def test_day9():
 
 
 def test_day9_alt(monkeypatch):
-    def get_alt_test_file_path(day: int) -> Path:
-        return Path(__file__).parent.parent / 'inputs' / f'day{day:d}_test_alt.txt'
+    def get_alt_test_file_path(year: int, day: int) -> Path:
+        return Path(__file__).parent / f'data/{year:d}/day{day:d}_test_alt.txt'
 
-    monkeypatch.setattr(common, 'get_file_path', get_alt_test_file_path)
+    monkeypatch.setattr(util, 'get_file_path', get_alt_test_file_path)
 
     assert day_9.count_visited_positions(10) == 36

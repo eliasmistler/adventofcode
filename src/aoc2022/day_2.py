@@ -3,7 +3,7 @@ from itertools import starmap
 
 from toolz import pluck, thread_last
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 class Figure(int, Enum):
@@ -60,7 +60,7 @@ def score_round(elf_move: Figure, our_move: Figure) -> int:
 
 
 def parse_inputs(mapping: dict) -> list[tuple[Figure, Figure]]:
-    raw = get_file_content(day=2)
+    raw = get_file_content(2022, 2)
     return thread_last(raw.split('\n'),
                        (map, lambda row: (elf_map[row[0]], mapping[row.strip()[-1]])),
                        list)

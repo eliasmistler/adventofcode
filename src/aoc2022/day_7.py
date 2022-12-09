@@ -4,7 +4,7 @@ from typing import Iterable, Union
 
 import toolz
 
-from solutions.common import get_file_content
+from aoc_common import get_file_content
 
 
 @dataclass
@@ -35,7 +35,7 @@ def parse_ls_entry(entry: str) -> Union[File, Directory]:
 
 
 def parse_directory_structure() -> Directory:
-    raw = get_file_content(day=7)
+    raw = get_file_content(2022, 7)
     commands = raw.split('\n$ ')
 
     assert commands[0] == '$ cd /', commands[0]
