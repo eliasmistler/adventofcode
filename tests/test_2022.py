@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from aoc2022 import day_1, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc2022 import day_1, day_10, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
 from aoc_common import util
 
 
@@ -141,3 +141,17 @@ def test_day9_alt(monkeypatch):
     monkeypatch.setattr(util, 'get_file_path', get_alt_test_file_path)
 
     assert day_9.count_visited_positions(10) == 36
+
+
+def test_day10():
+    observations, screen = day_10.run_instructions()
+    assert observations == [420, 1140, 1800, 2940, 2880, 3960]
+    exp_screen = [
+        "##..##..##..##..##..##..##..##..##..##..",
+        "###...###...###...###...###...###...###.",
+        "####....####....####....####....####....",
+        "#####.....#####.....#####.....#####.....",
+        "######......######......######......####",
+        "#######.......#######.......#######.....",
+    ]
+    assert screen == exp_screen
