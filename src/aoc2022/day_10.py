@@ -1,10 +1,6 @@
-import logging
-
 import toolz
 
 from aoc_common import get_file_content_lazy
-
-log = logging.getLogger(__name__)
 
 
 def run_instructions() -> tuple[list[int], list[str]]:
