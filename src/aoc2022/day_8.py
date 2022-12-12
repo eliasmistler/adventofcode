@@ -38,14 +38,14 @@ def score_trees(trees: np.array, mode: ScoreMode) -> np.array:
         for x in range(1, trees.shape[1] - 1):
             height = trees[y, x]
             view_ranges = [
-                list(reversed(trees[y, :x])),  # look left
+                trees[y, :x][::-1],  # look left
                 trees[y, x + 1:],  # look right
-                list(reversed(trees[:y, x])),  # look up
+                trees[:y, x][::-1],  # look up
                 trees[y + 1:, x],  # look down
             ]
             if mode == ScoreMode.is_visible:
                 if any(
-                        (height > max(view_range))
+                        (height > view_range.max())
                         for view_range in view_ranges
                 ):
                     scores[y, x] = 1

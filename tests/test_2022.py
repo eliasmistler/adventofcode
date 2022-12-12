@@ -1,6 +1,7 @@
+from collections import deque
 from pathlib import Path
 
-from aoc2022 import day_1, day_10, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc2022 import day_1, day_10, day_11, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
 from aoc_common import util
 
 
@@ -155,3 +156,20 @@ def test_day10():
         "#######.......#######.......#######.....",
     ]
     assert screen == exp_screen
+
+
+def test_day11():
+    monkeys = day_11.parse_monkeys()
+    day_11.play(monkeys, 20, False)
+
+    assert monkeys[0].items == deque([10, 12, 14, 26, 34])
+    assert monkeys[1].items == deque([245, 93, 53, 199, 115])
+    assert monkeys[2].items == deque([])
+    assert monkeys[3].items == deque([])
+
+    assert day_11.calculate_monkey_business(monkeys) == 10605
+
+    # part 2
+    monkeys = day_11.parse_monkeys()
+    day_11.play(monkeys, 10000, True)
+    assert day_11.calculate_monkey_business(monkeys) == 2713310158
