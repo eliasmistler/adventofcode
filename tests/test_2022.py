@@ -1,7 +1,7 @@
 from collections import deque
 from pathlib import Path
 
-from aoc2022 import day_1, day_10, day_11, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc2022 import day_1, day_10, day_11, day_12, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
 from aoc_common import util
 
 
@@ -173,3 +173,13 @@ def test_day11():
     monkeys = day_11.parse_monkeys()
     day_11.play(monkeys, 10000, True)
     assert day_11.calculate_monkey_business(monkeys) == 2713310158
+
+
+def test_day12():
+    heightmap, start, end = day_12.parse_heightmap()
+    result = day_12.find_shortest_path(heightmap, start, end)
+    assert result == 31
+
+    pos, distance = day_12.find_best_starting_point(heightmap, start, end)
+    assert pos == day_12.Coordinates(4, 0)
+    assert distance == 29
