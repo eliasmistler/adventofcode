@@ -1,7 +1,8 @@
 from collections import deque
+from itertools import starmap
 from pathlib import Path
 
-from aoc2022 import day_1, day_10, day_11, day_12, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc2022 import day_1, day_10, day_11, day_12, day_13, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
 from aoc_common import util
 
 
@@ -183,3 +184,13 @@ def test_day12():
     pos, distance = day_12.find_best_starting_point(heightmap, start, end)
     assert pos == day_12.Coordinates(4, 0)
     assert distance == 29
+
+
+def test_day13():
+    inputs = day_13.parse_inputs()
+    assert list(starmap(day_13.is_right_order, inputs)) == [
+        True, True, False, True, False, True, False, False
+    ]
+    assert day_13.sum_of_correct_order_indices(inputs) == 13
+
+    assert day_13.get_decoder_key(inputs) == 140
