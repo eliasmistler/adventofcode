@@ -2,7 +2,8 @@ from collections import deque
 from itertools import starmap
 from pathlib import Path
 
-from aoc2022 import day_1, day_10, day_11, day_12, day_13, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9
+from aoc2022 import day_1, day_10, day_11, day_12, day_13, day_14, day_2, day_3, day_4, day_5, day_6, day_7, day_8, \
+    day_9
 from aoc_common import util
 
 
@@ -194,3 +195,8 @@ def test_day13():
     assert day_13.sum_of_correct_order_indices(inputs) == 13
 
     assert day_13.get_decoder_key(inputs) == 140
+
+
+def test_day14():
+    assert day_14.simulate_and_count() == 24
+    assert day_14.simulate_and_count(True) == 93
