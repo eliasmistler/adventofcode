@@ -15,3 +15,7 @@ def get_file_content_lazy(year: int, day: int) -> Iterable[str]:
     with open(get_file_path(year, day)) as f:
         for line in f:
             yield line.strip()
+
+
+def get_file_lines(year: int, day: int) -> list[str]:
+    return list(get_file_content_lazy(year, day))
