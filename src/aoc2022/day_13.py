@@ -11,8 +11,7 @@ from aoc_common import get_file_content
 def parse_inputs():
     raw = get_file_content(2022, 13)
     return [
-        tuple(map(json.loads, raw_pair.split('\n')))
-        for raw_pair in raw.split('\n\n')
+        tuple(map(json.loads, raw_pair.split("\n"))) for raw_pair in raw.split("\n\n")
     ]
 
 
@@ -52,15 +51,12 @@ def sum_of_correct_order_indices(inputs) -> int:
         dict,
         (toolz.valfilter, bool),
         (map, (1).__add__),
-        sum
+        sum,
     )
 
 
 def get_decoder_key(inputs) -> int:
-    divider_signals = [
-        [[2]],
-        [[6]]
-    ]
+    divider_signals = [[[2]], [[6]]]
 
     @cmp_to_key
     def cmp(left, right):
@@ -74,10 +70,7 @@ def get_decoder_key(inputs) -> int:
     all_signals = list(chain(*inputs)) + divider_signals
     correct_order = sorted(all_signals, key=cmp)
     return toolz.thread_last(
-        divider_signals,
-        (map, correct_order.index),
-        (map, (1).__add__),
-        (reduce, mul)
+        divider_signals, (map, correct_order.index), (map, (1).__add__), (reduce, mul)
     )
 
 

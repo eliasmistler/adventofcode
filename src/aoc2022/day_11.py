@@ -19,13 +19,15 @@ class Monkey:
     operator: Callable[[int, int], int]
     operator_arg: Optional[int]  # if None, use old value instead
     test_div: int
-    true_monkey: 'Monkey'
-    false_monkey: 'Monkey'
+    true_monkey: "Monkey"
+    false_monkey: "Monkey"
     n_inspected: int = 0
 
     def inspect(self, item: int) -> int:
         self.n_inspected += 1
-        return self.operator(item, self.operator_arg if self.operator_arg is not None else item)
+        return self.operator(
+            item, self.operator_arg if self.operator_arg is not None else item
+        )
 
     def take_turn(self, alt_relief: int = None):
         while self.items:
@@ -62,25 +64,22 @@ Monkey {id:d}:
 
 def parse_monkeys():
     raw = get_file_content(2022, 11)
-    monkeys = raw.split('\n\n')
-    operators = {'+': operator.add, '*': operator.mul}
+    monkeys = raw.split("\n\n")
+    operators = {"+": operator.add, "*": operator.mul}
 
     def parse_monkey(m: str) -> Monkey:
         parsed = parse(INPUT_FORMAT, m).named
         return Monkey(
-            id=parsed['id'],
-            items=deque(map(int, parsed['items'].split(','))),
-            operator=operators[parsed['operator']],
-            operator_arg=None if parsed['arg'] == 'old' else int(parsed['arg']),
-            test_div=parsed['test_div'],
-            true_monkey=parsed['true_monkey'],
-            false_monkey=parsed['false_monkey'],
+            id=parsed["id"],
+            items=deque(map(int, parsed["items"].split(","))),
+            operator=operators[parsed["operator"]],
+            operator_arg=None if parsed["arg"] == "old" else int(parsed["arg"]),
+            test_div=parsed["test_div"],
+            true_monkey=parsed["true_monkey"],
+            false_monkey=parsed["false_monkey"],
         )
 
-    monkeys_by_id = {
-        monkey.id: monkey
-        for monkey in map(parse_monkey, monkeys)
-    }
+    monkeys_by_id = {monkey.id: monkey for monkey in map(parse_monkey, monkeys)}
 
     # create links post-hoc
     for monkey in monkeys_by_id.values():

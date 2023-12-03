@@ -23,15 +23,19 @@ def calibrate_line(line: str, parse_first: bool) -> int:
         line = thread_first(
             line,
             # {word}{digit}{word} is a bit silly, but it works in making sure that digit overlaps are considered
-            *((str.replace, word, f"{word}{digit}{word}") for word, digit in word_map.items()),
+            *(
+                (str.replace, word, f"{word}{digit}{word}")
+                for word, digit in word_map.items()
+            ),
         )
     digits = list(filter(string.digits.__contains__, line))
     return int(first(digits) + last(digits))
 
 
 def calibrate(parse_first: bool):
-    return sum(map(partial(calibrate_line, parse_first=parse_first),
-                   get_file_lines(2023, 1)))
+    return sum(
+        map(partial(calibrate_line, parse_first=parse_first), get_file_lines(2023, 1))
+    )
 
 
 if __name__ == "__main__":

@@ -23,14 +23,9 @@ class Marker(int, Enum):
 
 def parse_moves() -> list[Move]:
     raw = get_file_content(2022, 9)
-    parsed = (
-        parse('{move} {steps:d}', row)
-        for row in raw.split('\n')
-    )
+    parsed = (parse("{move} {steps:d}", row) for row in raw.split("\n"))
     return [
-        getattr(Move, d.named['move'])
-        for d in parsed
-        for _ in range(d.named['steps'])
+        getattr(Move, d.named["move"]) for d in parsed for _ in range(d.named["steps"])
     ]
 
 
@@ -42,7 +37,9 @@ def get_head_positions(moves: list[Move]) -> Iterable[tuple[int, int]]:
         yield y, x
 
 
-def get_tail_positions(head_positions: Iterable[tuple[int, int]]) -> Iterable[tuple[int, int]]:
+def get_tail_positions(
+    head_positions: Iterable[tuple[int, int]]
+) -> Iterable[tuple[int, int]]:
     y, x = 0, 0
     for head_y, head_x in head_positions:
         # straight move - vertical

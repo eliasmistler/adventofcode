@@ -16,7 +16,7 @@ class File:
 @dataclass
 class Directory:
     name: str
-    contents: dict[str, Union['Directory', File]]
+    contents: dict[str, Union["Directory", File]]
 
     @property
     def size(self) -> int:
@@ -27,8 +27,8 @@ class Directory:
 
 
 def parse_ls_entry(entry: str) -> Union[File, Directory]:
-    size, file_name = entry.split(' ')
-    if size == 'dir':
+    size, file_name = entry.split(" ")
+    if size == "dir":
         return Directory(file_name, {})
     else:
         return File(file_name, int(size))
@@ -36,35 +36,37 @@ def parse_ls_entry(entry: str) -> Union[File, Directory]:
 
 def parse_directory_structure() -> Directory:
     raw = get_file_content(2022, 7)
-    commands = raw.split('\n$ ')
+    commands = raw.split("\n$ ")
 
-    assert commands[0] == '$ cd /', commands[0]
-    current_path = Path('/')
+    assert commands[0] == "$ cd /", commands[0]
+    current_path = Path("/")
 
     paths = {}
 
     # collect all data from the commands
     for command in commands[1:]:
-        if command.startswith('cd'):
-            arg = command.split(' ', 1)[1]
-            if arg == '..':
+        if command.startswith("cd"):
+            arg = command.split(" ", 1)[1]
+            if arg == "..":
                 current_path = current_path.parent
             else:
                 current_path = current_path / arg
-        elif command.startswith('ls'):
-            results = command.split('\n')[1:]
+        elif command.startswith("ls"):
+            results = command.split("\n")[1:]
             children = list(map(parse_ls_entry, results))
             paths[current_path] = {c.name: c for c in children}
         else:
-            raise Exception(f'Unknown command: {command}')
+            raise Exception(f"Unknown command: {command}")
 
     # nest the directories correctly
-    for path, contents in sorted(paths.items(), key=lambda args: len(str(args[0])), reverse=True):
-        if path == Path('/'):
+    for path, contents in sorted(
+        paths.items(), key=lambda args: len(str(args[0])), reverse=True
+    ):
+        if path == Path("/"):
             continue
         paths[path.parent][path.name].contents = contents
 
-    return Directory('/', paths[Path('/')])
+    return Directory("/", paths[Path("/")])
 
 
 def _get_all_folders(root: Directory) -> Iterable[Directory]:
@@ -80,11 +82,13 @@ def sum_of_small_folders(root: Directory) -> int:
         _get_all_folders,
         (filter, lambda f: f.size < 100000),
         (map, lambda f: f.size),
-        sum
+        sum,
     )
 
 
-def space_to_clean_up(root: Directory, required: int = 30000000, total_filesystem: int = 70000000) -> int:
+def space_to_clean_up(
+    root: Directory, required: int = 30000000, total_filesystem: int = 70000000
+) -> int:
     return required + root.size - total_filesystem
 
 
@@ -95,7 +99,7 @@ def get_smallest_dir_for_cleanup(root: Directory, **kwargs) -> Directory:
         _get_all_folders,
         (filter, lambda f: f.size >= min_size),
         toolz.curry(sorted, key=lambda f: f.size),
-        toolz.first
+        toolz.first,
     )
 
 

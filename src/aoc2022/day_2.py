@@ -8,6 +8,7 @@ from aoc_common import get_file_content
 
 class Figure(int, Enum):
     """Figure. int value is the score associated"""
+
     Rock = 1
     Paper = 2
     Scissors = 3
@@ -15,34 +16,35 @@ class Figure(int, Enum):
 
 class Outcome(int, Enum):
     """Win/Lose/Draw scores"""
+
     Win = 6
     Draw = 3
     Lose = 0
 
 
 elf_map = {
-    'A': Figure.Rock,
-    'B': Figure.Paper,
-    'C': Figure.Scissors,
+    "A": Figure.Rock,
+    "B": Figure.Paper,
+    "C": Figure.Scissors,
 }
 
 our_map = {
-    'X': Figure.Rock,
-    'Y': Figure.Paper,
-    'Z': Figure.Scissors,
+    "X": Figure.Rock,
+    "Y": Figure.Paper,
+    "Z": Figure.Scissors,
 }
 
 outcome_map = {
-    'X': Outcome.Lose,
-    'Y': Outcome.Draw,
-    'Z': Outcome.Win,
+    "X": Outcome.Lose,
+    "Y": Outcome.Draw,
+    "Z": Outcome.Win,
 }
 
 win_pairs = [
     # left wins over right
     (Figure.Rock, Figure.Scissors),
     (Figure.Paper, Figure.Rock),
-    (Figure.Scissors, Figure.Paper)
+    (Figure.Scissors, Figure.Paper),
 ]
 
 
@@ -61,9 +63,11 @@ def score_round(elf_move: Figure, our_move: Figure) -> int:
 
 def parse_inputs(mapping: dict) -> list[tuple[Figure, Figure]]:
     raw = get_file_content(2022, 2)
-    return thread_last(raw.split('\n'),
-                       (map, lambda row: (elf_map[row[0]], mapping[row.strip()[-1]])),
-                       list)
+    return thread_last(
+        raw.split("\n"),
+        (map, lambda row: (elf_map[row[0]], mapping[row.strip()[-1]])),
+        list,
+    )
 
 
 def score_game(moves: list[tuple[Figure, Figure]]) -> int:

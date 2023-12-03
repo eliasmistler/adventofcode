@@ -22,14 +22,11 @@ def parse_cave_map(with_floor: bool):
     """
     # parse the paths as list of coordinates
     paths = [
-        [
-            tuple(map(int, position.split(',')))
-            for position in path.split(' -> ')
-        ]
-        for path in get_file_content(2022, 14).split('\n')
+        [tuple(map(int, position.split(","))) for position in path.split(" -> ")]
+        for path in get_file_content(2022, 14).split("\n")
     ]
     sand_start = (500, 0)
-    
+
     # find edges of the relevant map area
     all_points = list(chain(*paths)) + [sand_start]
     x_min = min(toolz.pluck(0, all_points)) - 1
@@ -54,17 +51,12 @@ def parse_cave_map(with_floor: bool):
         (y_from, y_to) = min(y_from, y_to), max(y_from, y_to)
         # now draw into cave_map, adjusted by offsets
         cave_map[
-            (y_from - y_min):(y_to - y_min + 1),
-            (x_from - x_min):(x_to - x_min + 1)
+            (y_from - y_min) : (y_to - y_min + 1), (x_from - x_min) : (x_to - x_min + 1)
         ] = what
 
     # create the cave_map as a numpy array, fill in rocks, start point and floor if required
     cave_map = np.zeros((y_max - y_min + 1, x_max - x_min + 1), dtype=int)
-    [
-        draw(p1, p2, ROCK)
-        for path in paths
-        for p1, p2 in toolz.sliding_window(2, path)
-    ]
+    [draw(p1, p2, ROCK) for path in paths for p1, p2 in toolz.sliding_window(2, path)]
     draw(sand_start, sand_start, SAND_START)
     if with_floor:
         draw((x_min, y_max), (x_max, y_max), ROCK)
@@ -111,10 +103,7 @@ def simulate_sand(cave_map: np.array) -> np.array:
 
 
 def simulate_and_count(with_floor: bool = False) -> int:
-    cave_map = toolz.pipe(
-        parse_cave_map(with_floor=with_floor),
-        simulate_sand
-    )
+    cave_map = toolz.pipe(parse_cave_map(with_floor=with_floor), simulate_sand)
     return int((cave_map == SAND).sum())
 
 

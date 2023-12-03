@@ -14,11 +14,11 @@ def split_compartments(rucksack: str) -> tuple[str, str]:
 
 def load_rucksacks():
     raw = get_file_content(2022, 3)
-    return raw.split('\n')
+    return raw.split("\n")
 
 
 def find_common_item(collections):
-    return ''.join(set.intersection(*map(set, collections)))
+    return "".join(set.intersection(*map(set, collections)))
 
 
 def part1_find_common_items_between_compartments():
@@ -27,7 +27,7 @@ def part1_find_common_items_between_compartments():
         (map, split_compartments),
         (map, find_common_item),
         (map, priority_map.get),
-        sum
+        sum,
     )
 
 
@@ -37,7 +37,7 @@ def part2_find_badges_in_elf_groups() -> list[tuple[str, str, str]]:
         toolz.curried.partition(3),
         (map, find_common_item),
         (map, priority_map.get),
-        sum
+        sum,
     )
 
 

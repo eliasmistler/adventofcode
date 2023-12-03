@@ -5,14 +5,11 @@ from aoc_common import get_file_content
 
 def get_data():
     raw = get_file_content(2021, 1)
-    return list(map(int, raw.split('\n')))
+    return list(map(int, raw.split("\n")))
 
 
 def count_increases() -> int:
-    return sum(
-        new > old
-        for old, new in toolz.sliding_window(2, get_data())
-    )
+    return sum(new > old for old, new in toolz.sliding_window(2, get_data()))
 
 
 def count_increases_w3() -> int:

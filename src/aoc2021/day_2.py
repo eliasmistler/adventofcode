@@ -20,8 +20,8 @@ Position = tuple[int, int]
 
 def parse_instructions() -> list[Instruction]:
     return [
-        (Direction[row.split(' ')[0]], int(row.split(' ')[1]))
-        for row in get_file_content(2021, 2).split('\n')
+        (Direction[row.split(" ")[0]], int(row.split(" ")[1]))
+        for row in get_file_content(2021, 2).split("\n")
     ]
 
 
@@ -46,9 +46,7 @@ def follow_instructions_v2(instructions: list[Instruction]):
 
 def calc_new_position_int(fn_follow_instructions: Callable) -> int:
     return toolz.thread_last(
-        parse_instructions(),
-        fn_follow_instructions,
-        (reduce, mul)
+        parse_instructions(), fn_follow_instructions, (reduce, mul)
     )
 
 

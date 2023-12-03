@@ -9,7 +9,9 @@ import toolz
 
 from aoc_common import get_file_content
 
-height_conversion = dict(zip(string.ascii_lowercase, range(len(string.ascii_lowercase))))
+height_conversion = dict(
+    zip(string.ascii_lowercase, range(len(string.ascii_lowercase)))
+)
 
 
 @dataclass
@@ -35,26 +37,22 @@ class Coordinates:
         return hash(tuple(self))
 
     def in_bounds(self, y: int, x: int) -> bool:
-        return (
-                0 <= self.y < y
-                and
-                0 <= self.x < x
-        )
+        return 0 <= self.y < y and 0 <= self.x < x
 
     def distance(self, other):
         """euclidean distance"""
         d = self - other
-        return math.sqrt(d.y ** 2 + d.x ** 2)
+        return math.sqrt(d.y**2 + d.x**2)
 
 
 def parse_heightmap() -> tuple[np.array, Coordinates, Coordinates]:
-    raw = get_file_content(2022, 12).split('\n')
+    raw = get_file_content(2022, 12).split("\n")
     heightmap = np.array(
         [
-            list(map(height_conversion.get, row.replace('S', 'a').replace('E', 'z')))
+            list(map(height_conversion.get, row.replace("S", "a").replace("E", "z")))
             for row in raw
         ],
-        int
+        int,
     )
 
     def get_pos(letter: str) -> Coordinates:
@@ -64,8 +62,8 @@ def parse_heightmap() -> tuple[np.array, Coordinates, Coordinates]:
             if letter in row
         ][0]
 
-    start = get_pos('S')
-    end = get_pos('E')
+    start = get_pos("S")
+    end = get_pos("E")
     return heightmap, start, end
 
 
@@ -77,7 +75,9 @@ NEIGHBOR_DIRECTIONS = [
 ]
 
 
-def get_distance_map(heightmap: np.array, start: Coordinates, end: Coordinates, inverted: bool = False) -> np.array:
+def get_distance_map(
+    heightmap: np.array, start: Coordinates, end: Coordinates, inverted: bool = False
+) -> np.array:
     distances = np.zeros_like(heightmap) - 1
     distances[tuple(start)] = 0
     open_list = [start]
@@ -99,9 +99,9 @@ def get_distance_map(heightmap: np.array, start: Coordinates, end: Coordinates, 
                     condition = (neighbor_height - height) <= 1
 
                 if (
-                        condition
-                        # only replace if it's better than another path
-                        and (neighbor_distance == -1 or (neighbor_distance > distance + 1))
+                    condition
+                    # only replace if it's better than another path
+                    and (neighbor_distance == -1 or (neighbor_distance > distance + 1))
                 ):
                     distances[tuple(neighbor)] = distance + 1
                     open_list.append(neighbor)
@@ -113,14 +113,18 @@ def get_distance_map(heightmap: np.array, start: Coordinates, end: Coordinates, 
     return distances
 
 
-def find_shortest_path(heightmap: np.array, start: Coordinates, end: Coordinates) -> int:
+def find_shortest_path(
+    heightmap: np.array, start: Coordinates, end: Coordinates
+) -> int:
     distances = get_distance_map(heightmap, start, end)
     if distances[tuple(end)] != -1:
         return distances[tuple(end)]
-    raise Exception('Failed to find a path!')
+    raise Exception("Failed to find a path!")
 
 
-def find_best_starting_point(heightmap: np.array, start: Coordinates, end: Coordinates) -> tuple[Coordinates, int]:
+def find_best_starting_point(
+    heightmap: np.array, start: Coordinates, end: Coordinates
+) -> tuple[Coordinates, int]:
     distance_from_end = get_distance_map(heightmap, end, start, inverted=True)
 
     candidates = {
@@ -131,7 +135,7 @@ def find_best_starting_point(heightmap: np.array, start: Coordinates, end: Coord
     shortest_distance = min(candidates.values())
     candidates = toolz.valfilter(shortest_distance.__eq__, candidates)
     if len(candidates) > 1:
-        logging.warning(f'{len(candidates)} starting points with the same distance.')
+        logging.warning(f"{len(candidates)} starting points with the same distance.")
     return toolz.first(candidates), shortest_distance
 
 

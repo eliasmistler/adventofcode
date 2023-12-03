@@ -9,10 +9,7 @@ from aoc_common import get_file_content
 
 def get_trees() -> np.array:
     raw = get_file_content(2022, 8)
-    return np.array([
-        np.fromiter(list(row), int)
-        for row in raw.split('\n')
-    ])
+    return np.array([np.fromiter(list(row), int) for row in raw.split("\n")])
 
 
 class ScoreMode(Enum):
@@ -39,17 +36,15 @@ def score_trees(trees: np.array, mode: ScoreMode) -> np.array:
             height = trees[y, x]
             view_ranges = [
                 trees[y, :x][::-1],  # look left
-                trees[y, x + 1:],  # look right
+                trees[y, x + 1 :],  # look right
                 trees[:y, x][::-1],  # look up
-                trees[y + 1:, x],  # look down
+                trees[y + 1 :, x],  # look down
             ]
             if mode == ScoreMode.is_visible:
-                if any(
-                        (height > view_range.max())
-                        for view_range in view_ranges
-                ):
+                if any((height > view_range.max()) for view_range in view_ranges):
                     scores[y, x] = 1
             else:
+
                 def score_range(r) -> int:
                     n = 0
                     for tree in r:
@@ -75,8 +70,8 @@ def get_max_possible_score(trees: np.array) -> int:
     i.e. the best possible view will always be the middle of the grid.
     """
     n_rows, n_cols = trees.shape
-    x = (n_cols // 2)
-    y = (n_rows // 2)
+    x = n_cols // 2
+    y = n_rows // 2
     return x * (n_cols - x - 1) * y * (n_rows - y - 1)
 
 
