@@ -5,6 +5,7 @@ import numpy as np
 from toolz import curried, valfilter
 
 from aoc_common import get_file_lines
+import gem
 
 """
 This one is pretty ugly. I'd much rather avoid the tedious loops,
@@ -14,7 +15,11 @@ That is just a symptom of a different approach to this problem than I normally t
 - Normally, I first load all the data in a format that represents the semantics of the data well
 - Here I only interpreted the raw data when needing to apply the logic - which means multiple passes
     over the data, and having to repeatedly interpret it. 
-    This would be much easier with a 2d math library like https://pypi.org/project/gem/v0.1.11/
+    This would be much easier with a 2d math library like:
+    - https://github.com/Pithikos/python-rectangles
+    - https://www.sympy.org
+    - https://pypi.org/project/shapely/
+    
 """
 
 
