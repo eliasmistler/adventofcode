@@ -5,7 +5,6 @@ import numpy as np
 from toolz import curried, valfilter
 
 from aoc_common import get_file_lines
-import gem
 
 """
 This one is pretty ugly. I'd much rather avoid the tedious loops,
@@ -62,7 +61,7 @@ def get_parts_total() -> int:
 def get_gears_total() -> int:
     raw = get_file_lines(2023, 3)
 
-    potential_gears = {pos: [] for pos in find_all('*'.__eq__, raw)}
+    potential_gears = {pos: [] for pos in find_all("*".__eq__, raw)}
 
     # find part numbers for each gear
     for line_idx, line in enumerate(raw):
