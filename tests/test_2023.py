@@ -1,4 +1,4 @@
-from aoc2023 import day_1, day_2
+from aoc2023 import day_1, day_2, day_3
 
 
 def test_day1():
@@ -15,3 +15,11 @@ def test_day2():
 
 def test_day2_pt2():
     assert day_2.get_total_power() == 2286
+
+
+def test_day3():
+    assert day_3.get_parts_total() == 4361
+
+
+def test_day3_pt2():
+    assert day_3.get_gears_total() == 467835
