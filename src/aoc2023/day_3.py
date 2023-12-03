@@ -1,5 +1,10 @@
+"""
+Note: There is a faster, but uglier, version of this in version history.
+      Unless performance matters, I prefer this solution by far, as it's more semantically meaningful
+"""
 import operator
 import re
+from functools import partial
 from math import sqrt
 from typing import Callable
 
@@ -44,13 +49,21 @@ def parse() -> tuple[dict, dict]:
     return engine_parts, other_parts
 
 
+def is_next_to(engine_part: Polygon, other_part: Point) -> bool:
+    if abs(engine_part.bounds[0] - other_part.x) > 1:
+        # heuristic: exclude any parts that are far away to improve speed
+        return False
+    else:
+        # the distance is neat but slow - hence the heuristic above
+        return engine_part.distance(other_part) <= sqrt(2)
+
+
 def get_parts_total() -> int:
     engine_parts, other_parts = parse()
     return sum(
         engine_number
         for engine_part, engine_number in engine_parts.items()
-        if min(engine_part.distance(other_part) for other_part in other_parts.keys())
-        <= sqrt(2)
+        if any(is_next_to(engine_part, other_part) for other_part in other_parts)
     )
 
 
@@ -60,7 +73,7 @@ def get_gears_total() -> int:
 
     def gear_power(gear: Point) -> int:
         close_parts = keyfilter(
-            lambda part: part.distance(gear) <= sqrt(2), engine_parts
+            partial(is_next_to, other_part=gear), engine_parts
         )
         return operator.mul(*close_parts.values()) if len(close_parts) == 2 else 0
 
