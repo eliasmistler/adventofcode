@@ -9,12 +9,15 @@ packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
-toolz = "^0.12.0"
-parse = "^1.19.0"
-numpy = "^1.23.5"
+toolz = ">=0.12"
+parse = "^1"
+numpy = "^1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.2.0"
+pytest = "^7"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
